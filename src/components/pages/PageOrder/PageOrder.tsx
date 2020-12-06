@@ -105,7 +105,11 @@ export default function PageOrder() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const onChangeStatus = (values: FormikValues) => {
-    return axios.put(`${API_PATHS.order}/order/${order.id}/status`, values)
+    return axios.put(`${API_PATHS.order}/order/${order.id}/status`, values, {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      }
+    })
       .then(({data}) => setOrder(data));
   };
 
@@ -115,8 +119,16 @@ export default function PageOrder() {
       return;
     }
     const promises: any[] = [
-      axios.get(`${API_PATHS.product}/product`),
-      axios.get(`${API_PATHS.order}/order/${id}`)
+      axios.get(`${API_PATHS.product}/product`, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        }
+      }),
+      axios.get(`${API_PATHS.order}/order/${id}`, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        }
+      }),
     ];
     Promise.all(promises)
       .then(([{data: products}, {data: order}]) => {
