@@ -125,7 +125,11 @@ export default function PageProductForm() {
       setIsLoading(false);
       return;
     }
-    axios.get(`${API_PATHS.bff}/products/${id}`)
+    axios.get(`${API_PATHS.bff}/products/${id}`, {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      }
+    })
       .then(res => {
         setProduct(res.data);
         setIsLoading(false);

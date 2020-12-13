@@ -118,11 +118,21 @@ export default function PageCart() {
         items: cartItems.map(i => ({productId: i.product.id, count: i.count})),
         address
       });
-      axios.put(`${API_PATHS.order}/order`, formattedValues)
+      axios.put(`${API_PATHS.order}/order`, formattedValues, {
+        headers: {
+          'Access-Control-Allow-Origin': '*'
+        }
+      })
         .then(() => {
           dispatch(clearCart());
           setActiveStep(activeStep + 1);
-        });
+        })
+        .catch((err) => {
+          console.error('Error: ', err.message)
+          console.error(err)
+          console.error(JSON.stringify(err))
+        })
+      ;
     }
   };
 

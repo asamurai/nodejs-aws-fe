@@ -15,14 +15,26 @@ export default function Orders() {
   const [orders, setOrders] = useState<any>([]);
 
   useEffect(() => {
-    axios.get(`${API_PATHS.order}/order`)
+    axios.get(`${API_PATHS.order}/order`, {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      }
+    })
       .then(res => setOrders(res.data));
   }, []);
 
   const onDelete = (id: string) => {
-    axios.delete(`${API_PATHS.order}/order/${id}`)
+    axios.delete(`${API_PATHS.order}/order/${id}`, {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      }
+    })
       .then(() => {
-        axios.get(`${API_PATHS.order}/order`)
+        axios.get(`${API_PATHS.order}/order`, {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+          }
+        })
           .then(res => setOrders(res.data));
         }
       );

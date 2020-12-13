@@ -15,6 +15,7 @@ export default function Cart() {
         `${API_PATHS.cart}/profile/cart`,
         {
           headers: {
+            'Access-Control-Allow-Origin': '*',
             Authorization: `Basic ${localStorage.getItem('authorization_token')}`
           }
         }
