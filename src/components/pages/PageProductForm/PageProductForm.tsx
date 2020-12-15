@@ -96,7 +96,7 @@ const Form = (props: FormikProps<FormikValues>) => {
       </Grid>
     </form>
   );
-}
+};
 
 const emptyValues: any = ProductSchema.cast();
 
@@ -114,7 +114,8 @@ export default function PageProductForm() {
       url: `${API_PATHS.bff}/products`,
       data: productToSave,
       headers: {
-        'Access-Control-Allow-Origin': '*'
+        'Access-Control-Allow-Origin': '*',
+        Authorization: `Basic ${localStorage.getItem('authorization_token')}`
       }
     })
       .then(() => history.push('/admin/products'));
@@ -128,13 +129,14 @@ export default function PageProductForm() {
     axios.get(`${API_PATHS.bff}/products/${id}`, {
       headers: {
         'Access-Control-Allow-Origin': '*',
+        Authorization: `Basic ${localStorage.getItem('authorization_token')}`
       }
     })
       .then(res => {
         setProduct(res.data);
         setIsLoading(false);
       });
-  }, [id])
+  }, [id]);
 
   if (isLoading) return <p>loading...</p>;
 
