@@ -18,7 +18,8 @@ export default function ProductsTable() {
   useEffect(() => {
     axios.get(`${API_PATHS.bff}/products`, {
       headers: {
-        'Access-Control-Allow-Origin': '*'
+        'Access-Control-Allow-Origin': '*',
+        Authorization: `Basic ${localStorage.getItem('authorization_token')}`
       }
     })
       .then(res => setProducts(res.data));
@@ -27,13 +28,15 @@ export default function ProductsTable() {
   const onDelete = (id: string) => {
     axios.delete(`${API_PATHS.bff}/product/${id}`, {
       headers: {
-        'Access-Control-Allow-Origin': '*'
+        'Access-Control-Allow-Origin': '*',
+        Authorization: `Basic ${localStorage.getItem('authorization_token')}`
       }
     })
       .then(() => {
         axios.get(`${API_PATHS.bff}/product`, {
           headers: {
-            'Access-Control-Allow-Origin': '*'
+            'Access-Control-Allow-Origin': '*',
+            Authorization: `Basic ${localStorage.getItem('authorization_token')}`
           }
         })
           .then(res => setProducts(res.data));
